@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+#include <stack>
+using namespace std;
+bool isLeftBrace(char brace)
+{
+  switch(brace)
+  {
+    case '(':
+      return true;
+    case '[':
+      return true;
+    case '{':
+      return true;
+    default:
+      return false;
+  }
+}
+char rightToLeft(char brace)
+{
+  switch(brace)
+  {
+    case ')':
+      return '(';
+    case ']':
+      return '[';
+    case '}':
+      return '}';
+  }
+}
+bool isValidBrace(string brace)
+{
+  stack<char> stack;
+  for(size_t i = 0; i < brace.size(); i++)
+  {
+    if(isLeftBrace(brace[i]) == true)
+    {
+      stack.push(brace[i]);
+    }
+    else
+    {
+      if (stack.top() == rightToLeft(brace[i]))
+      {
+        stack.pop();
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+  return stack.empty();
+}
+
+int main() 
+{
+  string s;
+  cin >> s;
+  cout << isValidBrace(s) << endl;
+}
