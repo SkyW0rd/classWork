@@ -1,0 +1,48 @@
+#include <cmath>
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<int> sortedSquares(const vector<int> &source)
+{
+  vector<int> result;
+  vector<int> buf = source;
+  int num;
+  int begin = 0, end = buf.size() - 1;
+  while(end - begin + 1 != 0)
+    {    
+      if (buf[begin] < 0) 
+      {
+      if (abs(buf[begin]) >= buf[end])
+      {
+        result.push_back(buf[begin] * buf[begin]);
+        begin++;
+      } 
+      else 
+      {
+        result.push_back(buf[end] * buf[end]);
+        end--;
+      }
+    }
+    else
+    {
+      result.push_back(buf[end] * buf[end]);
+      end--;
+    }
+  }
+  return result;
+}
+int main() 
+{
+  vector<int> v;
+  for (int i = -3; i < 5; i++) 
+  {
+    v.push_back(i);
+  }
+  const auto result = sortedSquares(v);
+  for (auto it : result) 
+  {
+    cout << it << " ";
+  }
+  cout << endl;
+  return 0;
+}
